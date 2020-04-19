@@ -13,7 +13,7 @@ client.on('message', msg => {
   if (msg.content.startsWith(config.prefix)) {
     console.log("Message received: " + msg.content);
     msg.react('👍')
-    .then(() => message.react('👎'));
+    .then(() => msg.react('👎'));
   }
   else (console.log("no response required"))
 }

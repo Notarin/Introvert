@@ -12,7 +12,8 @@ client.on('message', msg => {
     if (msg.channel.id === config.reactchan) {
   if (msg.content.startsWith(config.prefix)) {
     console.log("command received: " + msg.content);
-    msg.react('👍');
+    msg.react('👍')
+    .then(() => message.react('👎'));
   }
   else (console.log("no response required"))
 }

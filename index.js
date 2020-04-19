@@ -9,12 +9,13 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   if (!msg.author.bot) {
+    if (msg.channel.id === config.reactchan) {
   if (msg.content.startsWith(config.prefix)) {
     console.log("command received: " + msg.content);
     msg.reply('Pong!');
   }
   else (console.log("no response required"))
 }
-});
+}});
 
 client.login(token.token);

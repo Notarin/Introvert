@@ -9,6 +9,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   if (msg.content.startsWith(config.prefix)) {
+    console.log("command received: " + msg.content);
     msg.reply('Pong!');
   }
   else (console.log("no response required"))

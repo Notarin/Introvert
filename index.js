@@ -12,7 +12,7 @@ client.on('message', msg => {
     if (msg.channel.id === config.reactchan) {
   if (msg.content.startsWith(config.prefix)) {
     console.log("command received: " + msg.content);
-    const emoji = message.guild.emojis.cache.find(emoji => emoji.name === '+1');
+    const emoji = msg.guild.emojis.cache.find(emoji => emoji.name === '+1');
     console.log(emoji);
   }
   else (console.log("no response required"))

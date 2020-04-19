@@ -8,9 +8,9 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-  console.log(msg.content.startsWith());
+  console.log(msg.content.startsWith(config.prefix));
   console.log(config.prefix);
-  if (msg.content.startsWith() === config.prefix) {
+  if (msg.content.startsWith(config.prefix)) {
     msg.reply('Pong!');
   }
 });

@@ -8,11 +8,10 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-  console.log(msg.content.startsWith(config.prefix));
-  console.log(config.prefix);
   if (msg.content.startsWith(config.prefix)) {
     msg.reply('Pong!');
   }
+  else (console.log("no response required"))
 });
 
 client.login(token.token);

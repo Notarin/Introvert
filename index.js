@@ -11,7 +11,7 @@ client.on('message', msg => {
   if (!msg.author.bot) {
     if (msg.channel.id === config.reactchan) {
   if (msg.content.startsWith(config.prefix)) {
-    console.log("command received: " + msg.content);
+    console.log("Message received: " + msg.content);
     msg.react('👍')
     .then(() => message.react('👎'));
   }

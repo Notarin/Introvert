@@ -12,7 +12,7 @@ client.on('message', msg => {
     if (msg.channel.id === config.reactchan) {
   if (msg.content.startsWith(config.prefix)) {
     console.log("command received: " + msg.content);
-    msg.reply('Pong!');
+    msg.react('701257941105377341');
   }
   else (console.log("no response required"))
 }

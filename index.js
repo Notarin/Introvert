@@ -15,7 +15,7 @@ client.on('message', msg => {
     msg.react('👍')
     .then(() => msg.react('👎'));
   }
-  else (console.log("no response required"))
+  else (console.log("no react required"))
 }
 }});
 

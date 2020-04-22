@@ -11,7 +11,7 @@ client.on('message', msg => {
   if (!msg.author.bot) {
     if (msg.content.startsWith(config.prefix + "say ")) {
       var say = msg.content.replace(config.prefix + "say ","");
-      msg.delete(1000);
+      msg.delete();
       msg.send(say);
     }
     if (msg.channel.id === config.reactchan) {

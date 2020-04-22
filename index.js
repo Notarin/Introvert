@@ -12,7 +12,7 @@ client.on('message', msg => {
     if (msg.content.startsWith(config.prefix + "say ")) {
       var say = msg.content.replace(config.prefix + "say ","");
       msg.delete();
-      channel.send(say);
+      msg.channel.send(say);
     }
     if (msg.channel.id === config.reactchan) {
   if (msg.content.startsWith(config.prefix)) {

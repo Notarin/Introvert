@@ -8,22 +8,22 @@ client.on('ready', () => {
 });
 
 client.on('message', msg => {
-  if (!msg.author.bot) {
-    if (msg.content.startsWith(config.prefix + "say ")) {
-      if (msg.author.id == config.owner){
-      var say = msg.content.replace(config.prefix + "say ","");
-      msg.delete();
-      msg.channel.send(say);}
-      else {msg.reply("no")}
-    }
-    if (msg.channel.id === config.reactchan) {
+  if (msg.author.bot) {return;}
   if (msg.content.startsWith(config.prefix)) {
-    console.log("Message received: " + msg.content);
-    msg.react('👍')
-    .then(() => msg.react('👎'));
+    var full = msg.content.substr(config.prefix.length);
+    var command = msg.content.substr(0,str.indexOf(' '));
+    var args = msg.content.substr(str.indexOf(' ')+1);
+    if (command == "say" && msg.author.id == config.owner) {
+      msg.delete();
+      msg.channel.send(args);
+    }
+    if (msg.channel.id === config.reactchan && config.react) {
+      msg.react('👍')
+      .then(() => msg.react('👎'));
+    }
+    else {
+      msg.reply("that doesnt seem to be a command🤔")
+    }
   }
-  else (console.log("no react required"))
 }
-}});
-
 client.login(token.token);

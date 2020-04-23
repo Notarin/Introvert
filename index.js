@@ -10,7 +10,7 @@ client.on('ready', () => {
 client.on('message', msg => {
   if (!msg.author.bot) {
     if (msg.content.startsWith(config.prefix + "say ")) {
-      if (msg.author.id == "432380402238357516"){
+      if (msg.author.id == config.owner){
       var say = msg.content.replace(config.prefix + "say ","");
       msg.delete();
       msg.channel.send(say);}

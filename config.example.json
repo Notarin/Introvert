@@ -1,4 +1,5 @@
 {
 "prefix" : "&",
-"reactchan" : "CHANNEL ID"
+"reactchan" : "CHANNEL ID",
+"owner" : "OWNER ID HERE"
 }

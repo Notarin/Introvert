@@ -25,5 +25,5 @@ client.on('message', msg => {
       msg.reply("that doesnt seem to be a command🤔")
     }
   }
-}
+})
 client.login(token.token);

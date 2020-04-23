@@ -17,13 +17,16 @@ client.on('message', msg => {
     if (command == "say" && msg.author.id == config.owner) {
       msg.delete();
       msg.channel.send(args);
+      return;
     }
     if (msg.channel.id == config.reactchan && config.react) {
       msg.react('👍')
       .then(() => msg.react('👎'));
+      return;
     }
     else {
-      msg.reply("that doesnt seem to be a command🤔")
+      msg.reply("that doesnt seem to be a command🤔");
+      return;
     }
   }
 });

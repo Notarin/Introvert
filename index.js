@@ -12,7 +12,7 @@ client.on('message', msg => {
   if (msg.content.startsWith(config.prefix)) {
     var full = msg.content.substr(config.prefix.length);
     var command = msg.content.substr(0,str.indexOf(' '));
-    var args = msg.content.substr(str.indexOf(' ')+1);
+    var args = msg.content.substr(msg.content.indexOf(' ')+1);
     if (command == "say" && msg.author.id == config.owner) {
       msg.delete();
       msg.channel.send(args);

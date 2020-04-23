@@ -18,7 +18,7 @@ client.on('message', msg => {
       msg.delete();
       msg.channel.send(args);
     }
-    if (msg.channel.id === config.reactchan && config.react) {
+    if (msg.channel.id == config.reactchan && config.react) {
       msg.react('👍')
       .then(() => msg.react('👎'));
     }

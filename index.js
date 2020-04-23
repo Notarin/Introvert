@@ -11,9 +11,9 @@ client.on('message', msg => {
   if (msg.author.bot) {return;}
   if (msg.content.startsWith(config.prefix)) {
     var full = msg.content.substr(config.prefix.length);
-    var command = msg.content.substr(0,msg.content.indexOf(' '));
+    var command = full.substr(0,full.indexOf(' '));
     console.log(command);
-    var args = msg.content.substr(msg.content.indexOf(' ')+1);
+    var args = full.substr(full.indexOf(' ')+1);
     if (command == "say" && msg.author.id == config.owner) {
       msg.delete();
       msg.channel.send(args);

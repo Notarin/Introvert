@@ -12,6 +12,7 @@ client.on('message', msg => {
   if (msg.content.startsWith(config.prefix)) {
     var full = msg.content.substr(config.prefix.length);
     var command = full.substr(0,full.indexOf(' '));
+    if (!full.includes(" ")) {var command  = full;}
     console.log(command);
     var args = full.substr(full.indexOf(' ')+1);
     if (command == "say" && msg.author.id == config.owner) {

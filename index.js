@@ -19,6 +19,10 @@ client.on('message', msg => {
       msg.channel.send(args);
       return;
     }
+    if (command == "join") {
+    msg.member.voice.channel.join();
+    return;
+    }
     if (msg.channel.id == config.reactchan && config.react) {
       msg.react('👍')
       .then(() => msg.react('👎'));

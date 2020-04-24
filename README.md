@@ -1,2 +1,2 @@
-# Suggestion-Bot
-a bot to add reaction to messages that are suggestions
+# Introvert
+A bot for helpful commands on Introverts hangout on discord

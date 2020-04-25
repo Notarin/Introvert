@@ -10,34 +10,33 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   if (msg.author.bot) {return;}
-  if (msg.content.startsWith(config.prefix)) {
-    var full = msg.content.substr(config.prefix.length);
-    var command = full.substr(0,full.indexOf(' '));
-    if (!full.includes(" ")) {var command  = full;}
-    console.log(command);
-    var args = full.substr(full.indexOf(' ')+1);
-    if (command == "say" && msg.author.id == config.owner) {
-      msg.delete();
-      msg.channel.send(args);
-      return;
-    }
-    if (command == "join") {
-    msg.member.voice.channel.join();
+  if (!msg.content.startsWith(config.prefix)) {return;}
+  var full = msg.content.substr(config.prefix.length);
+  var command = full.substr(0,full.indexOf(' '));
+  if (!full.includes(" ")) {var command  = full;}
+  console.log(command);
+  var args = full.substr(full.indexOf(' ')+1);
+  if (command == "say" && msg.author.id == config.owner) {
+    msg.delete();
+    msg.channel.send(args);
     return;
-    }
-    if (command == "play") {
-      connection.play(ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), { type: 'opus' });
-      return;
-    }
-    if (msg.channel.id == config.reactchan && config.react) {
-      msg.react('👍')
-      .then(() => msg.react('👎'));
-      return;
-    }
-    else {
-      msg.reply("that doesnt seem to be a command🤔");
-      return;
-    }
+  }
+  if (command == "join") {
+  msg.member.voice.channel.join();
+  return;
+  }
+  if (command == "play") {
+    connection.play(ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), { type: 'opus' });
+    return;
+  }
+  if (msg.channel.id == config.reactchan && config.react) {
+    msg.react('👍')
+    .then(() => msg.react('👎'));
+    return;
+  }
+  else {
+    msg.reply("that doesnt seem to be a command🤔");
+    return;
   }
 });
 client.login(token.token);

@@ -26,7 +26,7 @@ client.on('message', msg => {
     return;
     }
     if (command == "play") {
-      async function play(connection, url) {
+      function play(connection, url) {
         connection.play(await ytdl(url), { type: 'opus' });
       }
       return;

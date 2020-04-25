@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const token = require("./token.json")
-const config = require("./config.json")
+const token = require("./token.json");
+const config = require("./config.json");
+const ytdl = require('ytdl-core-discord');
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -22,8 +23,12 @@ client.on('message', msg => {
     }
     if (command == "join") {
     msg.member.voice.channel.join();
-    ytdl('https://www.youtube.com/watch?v=dQw4w9WgXcQ', { filter : 'audioonly' });
     return;
+    }
+    if (command == "play") {
+      async function play(connection, url) {
+        connection.play(await ytdl(url), { type: 'opus' });
+      }
     }
     if (msg.channel.id == config.reactchan && config.react) {
       msg.react('👍')

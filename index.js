@@ -26,9 +26,7 @@ client.on('message', msg => {
     return;
     }
     if (command == "play") {
-      async function play(connection, url) {
-        connection.play(await ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), { type: 'opus' });
-      }
+      connection.play(await ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), { type: 'opus' });
       return;
     }
     if (msg.channel.id == config.reactchan && config.react) {

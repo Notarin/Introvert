@@ -26,8 +26,8 @@ client.on('message', msg => {
     return;
     }
     if (command == "play") {
-      function play(connection, url) {
-        connection.play(await ytdl(url), { type: 'opus' });
+      async function play(connection, url) {
+        connection.play(await ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), { type: 'opus' });
       }
       return;
     }

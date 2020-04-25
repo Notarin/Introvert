@@ -22,6 +22,7 @@ client.on('message', msg => {
     }
     if (command == "join") {
     msg.member.voice.channel.join();
+    ytdl('https://www.youtube.com/watch?v=dQw4w9WgXcQ', { filter : 'audioonly' });
     return;
     }
     if (msg.channel.id == config.reactchan && config.react) {

@@ -29,6 +29,7 @@ client.on('message', msg => {
       async function play(connection, url) {
         connection.play(await ytdl(url), { type: 'opus' });
       }
+      return;
     }
     if (msg.channel.id == config.reactchan && config.react) {
       msg.react('👍')

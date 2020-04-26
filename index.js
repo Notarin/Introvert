@@ -26,7 +26,7 @@ client.on('message', msg => {
   return;
   }
   if (command == "play") {
-    msg.member.voice.channel.play(ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), { type: 'opus' });
+    msg.member.voice.connection.play(ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), { type: 'opus' });
     return;
   }
   if (msg.channel.id == config.reactchan && config.react) {

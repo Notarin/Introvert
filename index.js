@@ -22,7 +22,7 @@ client.on('message', msg => {
     return;
   }
   if (command == "join") {
-    const connection = await msg.member.voice.channel.join();
+    const connection = msg.member.voice.channel.join();
     connection.play(ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), { type: 'opus' });
     return;
   }

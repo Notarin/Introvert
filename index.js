@@ -31,6 +31,7 @@ client.on('message', msg => {
   }
   if (command == "leave") {
     msg.member.voice.channel.leave();
+    return;
   }
   if (msg.channel.id == config.reactchan && config.react) {
     msg.react('👍')

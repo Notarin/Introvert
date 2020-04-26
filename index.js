@@ -22,7 +22,7 @@ client.on('message', msg => {
     return;
   }
   if (command == "join") {
-  msg.member.voice.channel.join();
+  const connection = await msg.member.voice.channel.join();
   return;
   }
   if (command == "play") {

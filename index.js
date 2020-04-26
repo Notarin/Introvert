@@ -27,7 +27,7 @@ client.on('message', msg => {
   }
   if (command == "play") {
     console.log(  msg.member.voice.channel);
-    msg.member.voice.channel.join().play(ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), { type: 'opus' });
+    connection.play(ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), { type: 'opus' });
     return;
   }
   if (command == "ping") {

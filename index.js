@@ -30,6 +30,10 @@ client.on('message', msg => {
     msg.member.voice.channel.play(ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), { type: 'opus' });
     return;
   }
+  if (command == "ping") {
+    msg.reply("Pong!");
+    return;
+  }
   if (command == "leave") {
     msg.member.voice.channel.leave();
     return;

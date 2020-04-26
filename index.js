@@ -29,6 +29,9 @@ client.on('message', msg => {
     msg.member.voice.connection.play(ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), { type: 'opus' });
     return;
   }
+  if (command == "leave") {
+    msg.member.voice.channel.leave();
+  }
   if (msg.channel.id == config.reactchan && config.react) {
     msg.react('👍')
     .then(() => msg.react('👎'));

@@ -14,7 +14,7 @@ client.on('message', msg => {
   var full = msg.content.substr(config.prefix.length);
   var command = full.substr(0,full.indexOf(' '));
   if (!full.includes(" ")) {var command  = full;}
-  console.log(command);
+  console.log(msg.content);
   var args = full.substr(full.indexOf(' ')+1);
   if (command == "say" && msg.author.id == config.owner) {
     msg.delete();
@@ -22,11 +22,12 @@ client.on('message', msg => {
     return;
   }
   if (command == "join") {
-  const connection = msg.member.voice.channel.join();
-  return;
+    client.on('message', async msg => {
+      const connection = await msg.member.voice.channel.join();
+      return;
+    }
   }
   if (command == "play") {
-    console.log(  msg.member.voice.channel);
     connection.play(ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), { type: 'opus' });
     return;
   }

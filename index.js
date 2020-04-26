@@ -25,7 +25,7 @@ client.on('message', msg => {
     client.on('message', async msg => {
       const connection = await msg.member.voice.channel.join();
       return;
-    }
+    )}
   }
   if (command == "play") {
     connection.play(ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), { type: 'opus' });

@@ -26,7 +26,7 @@ client.on('message', msg => {
   return;
   }
   if (command == "play") {
-    msg.member.voice.connection.play(ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), { type: 'opus' });
+    msg.member.voice.channel.connection.play(ytdl("https://www.youtube.com/watch?v=dQw4w9WgXcQ"), { type: 'opus' });
     return;
   }
   if (command == "leave") {

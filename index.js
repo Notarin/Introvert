@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const token = require("./token.json");
 const config = require("./config.json");
-const ytdl = require('ytdl-core-discord');
+const ytdl = require('ytdl-core');
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);

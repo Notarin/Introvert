@@ -25,6 +25,17 @@ client.on('message', msg => {
     msg.member.voice.channel.join().then(connection =>{connection.play(ytdl(args));}).catch(err => console.log(err));
     return;
   }
+  if (command == "fuckyou") {
+    let embed = new Discord.MessageEmbed()
+      .setTitle("FUCK YOU")
+      .setColor(16312092)
+      .setFooter('sincerely ' + msg.author.username, msg.author.avatarURL())
+      .setThumbnail(msg.mentions.users.first().avatarURL())
+      .setAuthor('Dear ' + msg.mentions.users.first().username);
+    console.log(embed);
+    msg.channel.send(embed);
+    return;
+  }
   if (command == "ping") {
     msg.reply("Pong!");
     return;

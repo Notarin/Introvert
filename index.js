@@ -28,7 +28,7 @@ client.on('message', msg => {
   if (command == "fuckyou") {
     let embed = new Discord.MessageEmbed()
       .setTitle("FUCK YOU")
-      .setColor(16312092)
+      .setColor(msg.guild.me.displayColor)
       .setFooter('sincerely ' + msg.author.username, msg.author.avatarURL())
       .setThumbnail(msg.mentions.users.first().avatarURL())
       .setAuthor('Dear ' + msg.mentions.users.first().username);

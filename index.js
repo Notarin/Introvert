@@ -36,6 +36,21 @@ client.on('message', msg => {
     msg.channel.send(embed);
     return;
   }
+  if (command == "av" || command == "avatar") {
+    if (msg.mentions.users.first()) {
+      var user = msg.mentions.users.first();
+    }
+    if (!msg.mentions.users.first()) {
+      var user = msg.author
+    }
+    let embed = new Discord.MessageEmbed()
+      .setTitle("AVATAR")
+      .setColor(msg.guild.me.displayColor)
+      .setImage(user.avatarURL({"size" : 4096}))
+      .setAuthor(msg.author.tag, msg.author.avatarURL());
+  msg.channel.send(embed);;
+  return;
+  }
   if (command == "ping") {
     msg.reply("Pong!");
     return;

@@ -65,7 +65,7 @@ client.on('message', msg => {
     return;
   }
   else {
-    msg.reply("that doesnt seem to be a command🤔");
+    msg.reply("that doesnt seem quite right...🤔");
     return;
   }
 });

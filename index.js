@@ -2,7 +2,9 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const token = require("./token.json");
 const config = require("./config.json");
+const gifs = require("./gifs.json");
 const ytdl = require('ytdl-core');
+const axios = require("axios");
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -57,6 +59,25 @@ client.on('message', msg => {
   }
   if (command == "leave") {
     msg.member.voice.channel.leave();
+    return;
+  }
+  if (msg.mentions.users.first() && gifs[command]) {
+    msg.channel.send("being made");
+    var gif = gifs[command].ids[Math.floor(Math.random() * gifs[command].ids.length)];
+    axios.get('https://api.giphy.com/v1/gifs/' + gif + '?api_key=D9cTxnp1jxQE6wW1RQVXDmoFpERehwXi')
+      .then(response => {
+        send = response.data.data.images.original.url;
+        console.log("running");
+        let embed = new Discord.MessageEmbed()
+          .setAuthor(msg.author.username + gifs[command].verb + msg.mentions.users.first().username)
+          .setColor(msg.guild.me.displayColor)
+          .setImage(send);
+        msg.channel.send(embed);
+        return;
+      })
+      .catch(error => {
+        console.log(error);
+      });
     return;
   }
   if (msg.channel.id == config.reactchan && config.react) {

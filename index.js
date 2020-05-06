@@ -71,7 +71,6 @@ client.on('message', msg => {
     process.exit(0);
   }
   if (msg.mentions.users.first() && gifs[command]) {
-    msg.channel.send("being made");
     var gif = gifs[command].ids[Math.floor(Math.random() * gifs[command].ids.length)];
     axios.get('https://api.giphy.com/v1/gifs/' + gif + '?api_key=D9cTxnp1jxQE6wW1RQVXDmoFpERehwXi')
       .then(response => {

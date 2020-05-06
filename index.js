@@ -5,6 +5,7 @@ const config = require("./config.json");
 const gifs = require("./gifs.json");
 const ytdl = require('ytdl-core');
 const axios = require("axios");
+const git = require('simple-git');
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -36,6 +37,10 @@ client.on('message', msg => {
       .setAuthor('Dear ' + msg.mentions.users.first().username);
     console.log(embed);
     msg.channel.send(embed);
+    return;
+  }
+  if (command == "gitpull") {
+    console.log(git().pull());
     return;
   }
   if (command == "av" || command == "avatar") {

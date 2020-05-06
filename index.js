@@ -77,7 +77,7 @@ client.on('message', msg => {
         send = response.data.data.images.original.url;
         console.log("running");
         let embed = new Discord.MessageEmbed()
-          .setAuthor(msg.author.username + gifs[command].verb + msg.mentions.users.first().username)
+          .setAuthor(msg.author.username + gifs[command].verb + msg.mentions.users.first().username, msg.author.avatarURL())
           .setColor(msg.guild.me.displayColor)
           .setImage(send);
         msg.channel.send(embed);

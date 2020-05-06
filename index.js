@@ -61,6 +61,10 @@ client.on('message', msg => {
     msg.member.voice.channel.leave();
     return;
   }
+  if (command == "shutdown" && msg.author.id == config.owner) {
+    console.log("shutting down...");
+    process.exit(0);
+  }
   if (msg.mentions.users.first() && gifs[command]) {
     msg.channel.send("being made");
     var gif = gifs[command].ids[Math.floor(Math.random() * gifs[command].ids.length)];

@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/Notarin/Introvert/issues"
   },
-  "homepage": "https://github.com/Notarin/Introvert#readme"
+  "homepage": "https://github.com/Notarin/Introvert#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "discord.js": "^12.2.0",
+    "simple-git": "^2.5.0",
+    "ytdl-core": "^2.1.2"
+  }
 }

@@ -1,0 +1,19 @@
+{
+  "name": "introvert",
+  "version": "1.0.0",
+  "description": "A bot for helpful commands on Introverts hangout on discord",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Notarin/Introvert.git"
+  },
+  "author": "Notarin",
+  "license": "Unlicense",
+  "bugs": {
+    "url": "https://github.com/Notarin/Introvert/issues"
+  },
+  "homepage": "https://github.com/Notarin/Introvert#readme"
+}

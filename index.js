@@ -98,4 +98,5 @@ client.on('message', msg => {
     return;
   }
 });
+
 client.login(token.token);

@@ -53,7 +53,7 @@ client.on('message', msg => {
     let embed = new Discord.MessageEmbed()
       .setTitle("AVATAR")
       .setColor(msg.guild.me.displayColor)
-      .setImage(user.avatarURL({"size" : 4096}))
+      .setImage(user.avatarURL({"size" : 4096, "dynamic" : true}))
       .setAuthor(msg.author.tag, msg.author.avatarURL());
   msg.channel.send(embed);;
   return;

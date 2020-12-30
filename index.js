@@ -11,6 +11,83 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
+client.ws.on('INTERACTION_CREATE', async interaction => {
+  const command = interaction.data.name.toLowerCase();
+  const args = interaction.data.options;
+  if (command === 'ping'){
+    client.api.interactions(interaction.id, interaction.token).callback.post({
+      data: {
+        type: 4,
+        data: {
+          content: "PONG!!!"
+        }
+      }
+    })
+  }
+  if (command === 'say'){
+    if (interaction.member.user.id == config.owner) {
+      client.api.interactions(interaction.id, interaction.token).callback.post({
+        data: {
+          type: 3,
+          data: {
+            content: args[0].value
+          }
+        }
+      })
+    }
+  }
+  if (command === 'avatar'){
+    client.users.fetch(args[0].value).then(function(result) {
+      var mention = result;
+      client.guilds.fetch(interaction.guild_id).then(function(result) {
+        var guild = result;
+        var author = interaction.member
+        let embed = new Discord.MessageEmbed()
+        .setColor(guild.me.displayColor)
+        .setTitle(mention.tag)
+        .setImage(mention.avatarURL({"size" : parseInt(args[1].value), "dynamic" : true}));
+        client.api.interactions(interaction.id, interaction.token).callback.post({
+          data: {
+            type: 4,
+            data: {
+              content: "test",
+              embeds: [embed]
+            }
+          }
+        });
+      });
+    });
+  }
+  if (command === 'gitpull'){
+    if (interaction.member.user.id == config.owner) {
+      git().pull();
+      client.api.interactions(interaction.id, interaction.token).callback.post({
+        data: {
+          type: 4,
+          data: {
+            content: "on it😎"
+          }
+        }
+      });
+    }
+  }
+  if (command === 'shutdown'){
+    if (interaction.member.user.id == config.owner) {
+      client.api.interactions(interaction.id, interaction.token).callback.post({
+        data: {
+          type: 4,
+          data: {
+            content: "byebye..."
+          }
+        }
+      })
+      .then(function(result) {
+        process.exit(0);
+      });
+    }
+  }
+});
+
 client.on('message', msg => {
   if (msg.author.bot) {return;}
   if (!msg.content.startsWith(config.prefix)) {return;}

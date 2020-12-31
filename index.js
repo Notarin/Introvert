@@ -95,56 +95,9 @@ client.on('message', msg => {
   if (!full.includes(" ")) {var command  = full;}
   console.log(msg.content);
   var args = full.substr(full.indexOf(' ')+1);
-  if (command == "say" && msg.author.id == config.owner) {
-    msg.delete();
-    msg.channel.send(args);
-    return;
-  }
-  if (command == "play") {
-    msg.member.voice.channel.join().then(connection =>{connection.play(ytdl(args));}).catch(err => console.log(err));
-    return;
-  }
-  if (command == "fuckyou") {
-    let embed = new Discord.MessageEmbed()
-      .setTitle("FUCK YOU")
-      .setColor(msg.guild.me.displayColor)
-      .setFooter('sincerely ' + msg.author.username, msg.author.avatarURL())
-      .setThumbnail(msg.mentions.users.first().avatarURL())
-      .setAuthor('Dear ' + msg.mentions.users.first().username);
-    console.log(embed);
-    msg.channel.send(embed);
-    return;
-  }
-  if (command == "gitpull") {
-    console.log(git().pull());
-    return;
-  }
-  if (command == "av" || command == "avatar") {
-    if (msg.mentions.users.first()) {
-      var user = msg.mentions.users.first();
-    }
-    if (!msg.mentions.users.first()) {
-      var user = msg.author
-    }
-    let embed = new Discord.MessageEmbed()
-      .setTitle("AVATAR")
-      .setColor(msg.guild.me.displayColor)
-      .setImage(user.avatarURL({"size" : 4096, "dynamic" : true}))
-      .setAuthor(msg.author.tag, msg.author.avatarURL());
-  msg.channel.send(embed);;
-  return;
-  }
   if (command == "ping") {
     msg.reply("Pong!");
     return;
-  }
-  if (command == "leave") {
-    msg.member.voice.channel.leave();
-    return;
-  }
-  if (command == "shutdown" && msg.author.id == config.owner) {
-    console.log("shutting down...");
-    process.exit(0);
   }
   if (msg.mentions.users.first() && gifs[command]) {
     var gif = gifs[command].ids[Math.floor(Math.random() * gifs[command].ids.length)];

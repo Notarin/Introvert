@@ -50,7 +50,6 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
           data: {
             type: 4,
             data: {
-              content: "test",
               embeds: [embed]
             }
           }

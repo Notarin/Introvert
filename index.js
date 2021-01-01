@@ -57,7 +57,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
       });
     });
   }
-  if (command === 'gitpull'){
+  if (command === 'update'){
     if (interaction.member.user.id == config.owner) {
       git().pull();
       client.api.interactions(interaction.id, interaction.token).callback.post({

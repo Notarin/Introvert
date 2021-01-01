@@ -104,7 +104,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
         .setTitle("User info")
         .setDescription("Here's everything I found on the user!")
         .setColor(member.displayColor)
-        .setFooter("User Info from Introvert")
+        .setFooter("User Info from " + client.user.username)
         .setThumbnail(avatar)
         .setAuthor(user.username, avatar)
         .addField("Avatar id", user.avatar, true)

@@ -85,6 +85,52 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
       });
     }
   }
+  if (command === 'userinfo'){
+    Promise.all([
+      client.users.fetch(args[0].value),
+      client.guilds.fetch(interaction.guild_id)
+    ])
+    .then(function (responses) {
+      var user = responses[0]
+      var guild = responses[1]
+      Promise.all([
+        user.avatarURL(),
+        guild.members.fetch(args[0].value)
+      ])
+      .then(function (responses) {
+        var avatar = responses[0]
+        var member = responses[1]
+        let embed = new Discord.MessageEmbed()
+        .setTitle("User info")
+        .setDescription("Here's everything I found on the user!")
+        .setColor(member.displayColor)
+        .setFooter("User Info from Introvert")
+        .setThumbnail(avatar)
+        .setAuthor(user.username, avatar)
+        .addField("Avatar id", user.avatar, true)
+        .addField("User id", user.id, true)
+        .addField("Username", user.username, true)
+        .addField("Discriminator", user.discriminator, true)
+        .addField("Is Bot?", user.bot, true)
+        .addField("Create Date", user.createdAt, true)
+        .addField("User Locale", user.locale, true)
+        .addField("Current Status", user.presence.status, true)
+        .addField("Left server?", member.deleted, true)
+        .addField("Nickname", member.displayName, true)
+        .addField("Join Date", member.joinedAt, true)
+        .addField("Managable by bot?", member.manageable, true)
+        .addField("Boosting Since", member.premiumSince, true)
+        client.api.interactions(interaction.id, interaction.token).callback.post({
+          data: {
+            type: 4,
+            data: {
+              embeds: [embed]
+            }
+          }
+        })
+      })
+    })
+  }
 });
 
 client.on('message', msg => {

@@ -119,6 +119,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
         .addField("Nickname", member.displayName, true)
         .addField("Join Date", member.joinedAt, true)
         .addField("Managable by bot?", member.manageable, true)
+        .addField("Permissions", member.permissions.toArray(), true)
         .addField("Boosting Since", member.premiumSince, true)
         client.api.interactions(interaction.id, interaction.token).callback.post({
           data: {

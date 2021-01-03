@@ -160,7 +160,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
         .addField("Sever Boosts", guild.premiumSubscriptionCount, true)
         .addField("Boost Tier", guild.premiumTier, true)
         .addField("Server Region", guild.region, true)
-        .addField("Vanity URL", guild.vanityURLCode, true)
+        .addField("Vanity URL", "[" + guild.vanityURLCode + "](https://discord.gg" + guild.vanityURLCode + ")", true)
         .addField("Verification Level", guild.verificationLevel, true)
         .addField("Verified", guild.verified, true)
         client.api.interactions(interaction.id, interaction.token).callback.post({

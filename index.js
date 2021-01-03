@@ -76,7 +76,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
         data: {
           type: 4,
           data: {
-            content: "byebye..."
+            content: config.shutdownmessage
           }
         }
       })

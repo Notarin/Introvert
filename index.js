@@ -132,6 +132,48 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
       })
     })
   }
+  if (command == 'serverinfo') {
+    client.guilds.fetch(interaction.guild_id)
+    .then(function (response) {
+      var guild = response;
+      guild.members.fetch(interaction.member.user.id)
+      .then(function (response) {
+        var member = response;
+        let embed = new Discord.MessageEmbed()
+        .setTitle("Server info")
+        .setDescription("Here's everything I found on the Server!")
+        .setColor(member.displayColor)
+        .setFooter("Server Info from " + client.user.username)
+        .setAuthor(guild.name)
+        .addField("Creation Date", guild.createdAt, true)
+        .addField("Server Description", guild.description, true)
+        .addField("Filter Level", guild.explicitContentFilter, true)
+        .addField("Server ID", guild.id, true)
+        .addField("Is Large?", guild.large, true)
+        .addField("Maximum Members", guild.maximumMembers, true)
+        .addField("Member Count", guild.memberCount, true)
+        .addField("MFA Level", guild.mfaLevel, true)
+        .addField("Server Name", guild.name, true)
+        .addField("Server Owner", guild.owner, true)
+        .addField("Partnered?", guild.partnered, true)
+        .addField("Server Locale", guild.preferredLocale, true)
+        .addField("Sever Boosts", guild.premiumSubscriptionCount, true)
+        .addField("Boost Tier", guild.premiumTier, true)
+        .addField("Server Region", guild.region, true)
+        .addField("Vanity URL", guild.vanityURLCode, true)
+        .addField("Verification Level", guild.verificationLevel, true)
+        .addField("Verified", guild.verified, true)
+        client.api.interactions(interaction.id, interaction.token).callback.post({
+          data: {
+            type: 4,
+            data: {
+              embeds: [embed]
+            }
+          }
+        })
+      })
+    })
+  }
 });
 
 client.on('message', msg => {

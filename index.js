@@ -178,12 +178,19 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
 
 client.on('message', msg => {
   if (msg.author.bot) {return;}
-  if (!msg.content.startsWith(config.prefix)) {return;}
   var full = msg.content.substr(config.prefix.length);
   var command = full.substr(0,full.indexOf(' '));
   if (!full.includes(" ")) {var command  = full;}
   console.log(msg.content);
   var args = full.substr(full.indexOf(' ')+1);
+  if (msg.channel.id == config.infinchan) {
+    msg.channel.messages.fetch({ limit: 2 }).then(messages => {
+      if (parseInt(messages.array()[1].content) + 1 != msg.content) {
+        msg.delete({ timeout: 100 })
+      }
+    })
+  }
+  if (!msg.content.startsWith(config.prefix)) {return;}
   if (command == "ping") {
     msg.reply("Pong!");
     return;

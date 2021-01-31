@@ -3,5 +3,6 @@
 "reactchan" : "CHANNEL ID",
 "owner" : "OWNER ID HERE",
 "react" : "1=react 0=dont",
+"infinchan" : "COUNTINGCHANNEL",
 "shutdownmessage" : "byebye..."
 }

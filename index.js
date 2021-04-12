@@ -8,6 +8,13 @@ const axios = require("axios");
 const git = require('simple-git');
 const fs = require('fs');
 
+function clean(text) {
+  if (typeof(text) === "string")
+    return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+  else
+      return text;
+}
+
 process.stdin.resume();
 async function logout() {
   client.destroy();
@@ -56,6 +63,34 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
           }
         }
       })
+    }
+  }
+  if (command === 'eval'){
+    if (interaction.member.user.id == config.owner) {
+      try {
+        console.log(args[0].value);
+        let evaled = eval(args[0].value);
+        if (typeof evaled !== "string") {
+          evaled = require("util").inspect(evaled);
+        }
+        client.api.interactions(interaction.id, interaction.token).callback.post({
+          data: {
+            type: 4,
+            data: {
+              content: clean(evaled)
+            }
+          }
+        })
+      } catch (e) {
+        client.api.interactions(interaction.id, interaction.token).callback.post({
+          data: {
+            type: 4,
+            data: {
+              content: `\`ERROR\` \`\`\`xl\n${clean(e)}\n\`\`\``
+            }
+          }
+        })
+      }
     }
   }
   if (command === 'avatar'){

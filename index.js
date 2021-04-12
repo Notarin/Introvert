@@ -103,7 +103,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
         }
       })
       .then(function(result) {
-        process.exit(0);
+        logout().then(() => process.exit(0));
       });
     }
   }

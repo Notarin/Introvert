@@ -196,6 +196,36 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
       })
     })
   }
+  if (command == 'covidinfo') {
+    axios.request({method: 'GET', url: 'https://api.covidtracking.com/v1/us/current.json'}).then(function (response) {
+      console.log(response.data);
+      var covid = response.data[0];
+      let embed = new Discord.MessageEmbed()
+      .setTitle("US COVID DATA")
+      .setColor("RANDOM")
+      .setFooter("Data Kindly Provided by The Covid Tracking Project | https://covidtracking.com/")
+      .setImage("https://covid19communicationnetwork.org/wp-content/uploads/2020/09/Screen-Shot-2020-09-23-at-5.08.27-PM.png")
+      .addField("Deaths", covid.death, true)
+      .addField("Deaths since yesterday", covid.deathIncrease, true)
+      .addField("Total Hospitalized", covid.hospitalizedCumulative, true)
+      .addField("Currently Hospitalized", covid.hospitalizedCurrently, true)
+      .addField("Hospitalized Since Yesterday", covid.hospitalizedIncrease, true)
+      .addField("Total In ICU", covid.inIcuCumulative, true)
+      .addField("Currently In ICU", covid.inIcuCurrently, true)
+      .addField("Total on Ventilator", covid.onVentilatorCumulative, true)
+      .addField("Currently on Ventilator", covid.onVentilatorCurrently, true)
+      .addField("Total Positive Cases", covid.positive, true)
+      .addField("Positive Cases Since Yesterday", covid.positiveIncrease, true)
+      client.api.interactions(interaction.id, interaction.token).callback.post({
+        data: {
+          type: 4,
+          data: {
+            embeds: [embed]
+          }
+        }
+      })
+    });
+  }
 });
 
 client.on('message', msg => {

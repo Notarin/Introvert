@@ -6,6 +6,19 @@ const gifs = require("./gifs.json");
 const ytdl = require('ytdl-core');
 const axios = require("axios");
 const git = require('simple-git');
+const fs = require('fs');
+
+function log(type, content, username, userid, time, url, id) {
+  var filter = /,|"|'|`|\n/g
+  var type = type.toString().replace(filter,"")
+  var content = content.toString().replace(filter,"")
+  var username = username.toString().replace(filter,"")
+  var userid = userid.toString().replace(filter,"")
+  var time = time.toString().replace(filter,"")
+  var url = url.toString().replace(filter,"")
+  var id = id.toString().replace(filter,"")
+  fs.appendFile('log.csv', type + "," + content + "," + username + "," + userid + "," + time + "," + url + "," + id + "\n", err => {});
+}
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -177,6 +190,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
 });
 
 client.on('message', msg => {
+  log("Message", msg.content, msg.author.tag, msg.author.id, Date(), msg.url, msg.id)
   if (msg.author.bot) {return;}
   var full = msg.content.substr(config.prefix.length);
   var command = full.substr(0,full.indexOf(' '));

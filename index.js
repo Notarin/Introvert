@@ -14,6 +14,11 @@ function clean(text) {
   else
       return text;
 }
+async function callback(interaction, type, content) {
+  await client.api.interactions(interaction.id, interaction.token).callback.post(
+    {data: {type: type, data: {content: content}}}
+  );
+}
 
 process.stdin.resume();
 async function logout() {
@@ -117,14 +122,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
   if (command === 'update'){
     if (interaction.member.user.id == config.owner) {
       const log = await git().pull();
-      client.api.interactions(interaction.id, interaction.token).callback.post({
-        data: {
-          type: 4,
-          data: {
-            content: "```json\n" + JSON.stringify(log, null, '\t') + "```"
-          }
-        }
-      });
+      callback(interaction, 4, "```json\n" + JSON.stringify(log, null, '\t') + "```");
     }
   }
   if (command === 'shutdown'){

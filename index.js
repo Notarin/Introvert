@@ -116,12 +116,12 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
   }
   if (command === 'update'){
     if (interaction.member.user.id == config.owner) {
-      git().pull();
+      const log = await git().pull();
       client.api.interactions(interaction.id, interaction.token).callback.post({
         data: {
           type: 4,
           data: {
-            content: "on it😎"
+            content: "```json\n" + JSON.stringify(log, null, '\t') + "```"
           }
         }
       });

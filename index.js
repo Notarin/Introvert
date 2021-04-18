@@ -8,6 +8,8 @@ const axios = require("axios");
 const git = require('simple-git');
 const fs = require('fs');
 
+process.stdin.resume();
+
 function clean(text) {
   if (typeof(text) === "string")
     return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
@@ -19,8 +21,6 @@ async function callback(interaction, type, content) {
     {data: {type: type, data: {content: content}}}
   );
 }
-
-process.stdin.resume();
 async function logout() {
   client.destroy();
 }
@@ -28,7 +28,6 @@ process.on('SIGINT', function() {
   console.log('Shutting Down');
   logout().then(() => process.exit(0));
 });
-
 function log(type, content, username, userid, time, url, id) {
   var filter = /,|"|'|`|\n/g
   var type = type.toString().replace(filter,"")

@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const token = require("./token.json");
 const config = require("./config.json");
-const gifs = require("./gifs.json");
 const ytdl = require('ytdl-core');
 const axios = require("axios");
 const git = require('simple-git');

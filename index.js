@@ -186,7 +186,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
       callback(interaction, 4, "```json\n" + JSON.stringify(log, null, '\t') + "```");
       break;
       case 'shutdown':
-      callback(interaction, 4, config.shutdownmessage);
+      callback(interaction, 4, config.shutdownmessage)
       .then(function(result) {
         logout().then(() => process.exit(0));
       });

@@ -48,57 +48,11 @@ client.on('ready', () => {
 client.ws.on('INTERACTION_CREATE', async interaction => {
   const command = interaction.data.name.toLowerCase();
   const args = interaction.data.options;
-  if (command === 'ping'){
-    client.api.interactions(interaction.id, interaction.token).callback.post({
-      data: {
-        type: 4,
-        data: {
-          content: "PONG!!!"
-        }
-      }
-    })
-  }
-  if (command === 'say'){
-    if (interaction.member.user.id == config.owner) {
-      client.api.interactions(interaction.id, interaction.token).callback.post({
-        data: {
-          type: 3,
-          data: {
-            content: args[0].value
-          }
-        }
-      })
-    }
-  }
-  if (command === 'eval'){
-    if (interaction.member.user.id == config.owner) {
-      try {
-        console.log(args[0].value);
-        let evaled = eval(args[0].value);
-        if (typeof evaled !== "string") {
-          evaled = require("util").inspect(evaled);
-        }
-        client.api.interactions(interaction.id, interaction.token).callback.post({
-          data: {
-            type: 4,
-            data: {
-              content: clean(evaled)
-            }
-          }
-        })
-      } catch (e) {
-        client.api.interactions(interaction.id, interaction.token).callback.post({
-          data: {
-            type: 4,
-            data: {
-              content: `\`ERROR\` \`\`\`xl\n${clean(e)}\n\`\`\``
-            }
-          }
-        })
-      }
-    }
-  }
-  if (command === 'avatar'){
+  switch (command) {
+    case 'ping':
+    callback(interaction, 4, "PONG!!!");
+    break;
+    case 'avatar':
     client.users.fetch(args[0].value).then(function(result) {
       var mention = result;
       client.guilds.fetch(interaction.guild_id).then(function(result) {
@@ -108,39 +62,11 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
         .setColor(guild.me.displayColor)
         .setTitle(mention.tag)
         .setImage(mention.avatarURL({"size" : parseInt(args[1].value), "dynamic" : true}));
-        client.api.interactions(interaction.id, interaction.token).callback.post({
-          data: {
-            type: 4,
-            data: {
-              embeds: [embed]
-            }
-          }
-        });
+        callback(interaction, 4, [embed]);
       });
     });
-  }
-  if (command === 'update'){
-    if (interaction.member.user.id == config.owner) {
-      const log = await git().pull();
-      callback(interaction, 4, "```json\n" + JSON.stringify(log, null, '\t') + "```");
-    }
-  }
-  if (command === 'shutdown'){
-    if (interaction.member.user.id == config.owner) {
-      client.api.interactions(interaction.id, interaction.token).callback.post({
-        data: {
-          type: 4,
-          data: {
-            content: config.shutdownmessage
-          }
-        }
-      })
-      .then(function(result) {
-        logout().then(() => process.exit(0));
-      });
-    }
-  }
-  if (command === 'userinfo'){
+    break;
+    case 'userinfo':
     Promise.all([
       client.users.fetch(args[0].value),
       client.guilds.fetch(interaction.guild_id)
@@ -176,18 +102,11 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
         .addField("Managable by bot?", member.manageable, true)
         .addField("Permissions", member.permissions.toArray(), true)
         .addField("Boosting Since", member.premiumSince, true)
-        client.api.interactions(interaction.id, interaction.token).callback.post({
-          data: {
-            type: 4,
-            data: {
-              embeds: [embed]
-            }
-          }
-        })
+        callback(interaction, 4, [embed]);
       })
     })
-  }
-  if (command == 'serverinfo') {
+    break;
+    case 'serverinfo':
     client.guilds.fetch(interaction.guild_id)
     .then(function (response) {
       var guild = response;
@@ -218,18 +137,11 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
         .addField("Vanity URL", guild.vanityURLCode, true)
         .addField("Verification Level", guild.verificationLevel, true)
         .addField("Verified", guild.verified, true)
-        client.api.interactions(interaction.id, interaction.token).callback.post({
-          data: {
-            type: 4,
-            data: {
-              embeds: [embed]
-            }
-          }
-        })
+        callback(interaction, 4, [embed]);
       })
-    })
-  }
-  if (command == 'covidinfo') {
+    });
+    break;
+    case 'covidinfo':
     axios.request({method: 'GET', url: 'https://api.covidtracking.com/v1/us/current.json'}).then(function (response) {
       console.log(response.data);
       var covid = response.data[0];
@@ -249,15 +161,38 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
       .addField("Currently on Ventilator", covid.onVentilatorCurrently, true)
       .addField("Total Positive Cases", covid.positive, true)
       .addField("Positive Cases Since Yesterday", covid.positiveIncrease, true)
-      client.api.interactions(interaction.id, interaction.token).callback.post({
-        data: {
-          type: 4,
-          data: {
-            embeds: [embed]
-          }
-        }
-      })
+      callback(interaction, 4, [embed])
     });
+    break;
+  }
+  if (interaction.member.user.id == config.owner) {
+    switch (command) {
+      case 'say':
+      callback(interaction, 3, args[0].value);
+      break;
+      case 'eval':
+      try {
+        console.log(args[0].value);
+        let evaled = eval(args[0].value);
+        if (typeof evaled !== "string") {
+          evaled = require("util").inspect(evaled);
+        }
+        callback(interaction, 4, clean(evaled));
+      } catch (e) {
+        callback(interaction, 4, `\`ERROR\` \`\`\`xl\n${clean(e)}\n\`\`\``);
+      }
+      break;
+      case 'update':
+      const log = await git().pull();
+      callback(interaction, 4, "```json\n" + JSON.stringify(log, null, '\t') + "```");
+      break;
+      case 'shutdown':
+      callback(interaction, 4, config.shutdownmessage);
+      .then(function(result) {
+        logout().then(() => process.exit(0));
+      });
+      break;
+    }
   }
 });
 

@@ -281,24 +281,6 @@ client.on('message', msg => {
     msg.reply("Pong!");
     return;
   }
-  if (msg.mentions.users.first() && gifs[command]) {
-    var gif = gifs[command].ids[Math.floor(Math.random() * gifs[command].ids.length)];
-    axios.get('https://api.giphy.com/v1/gifs/' + gif + '?api_key=D9cTxnp1jxQE6wW1RQVXDmoFpERehwXi')
-      .then(response => {
-        send = response.data.data.images.original.url;
-        console.log("running");
-        let embed = new Discord.MessageEmbed()
-          .setAuthor(msg.author.username + gifs[command].verb + msg.mentions.users.first().username + "!!!", msg.author.avatarURL())
-          .setColor(msg.guild.me.displayColor)
-          .setImage(send);
-        msg.channel.send(embed);
-        return;
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    return;
-  }
   if (msg.channel.id == config.reactchan && config.react) {
     msg.react('👍')
     .then(() => msg.react('👎'));

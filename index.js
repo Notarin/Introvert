@@ -15,9 +15,9 @@ function clean(text) {
   else
       return text;
 }
-async function callback(interaction, type, content) {
+async function callback(interaction, type, content, embed) {
   await client.api.interactions(interaction.id, interaction.token).callback.post(
-    {data: {type: type, data: {content: content}}}
+    {data: {type: type, data: {content: content,embeds: embed}}}
   );
 }
 async function logout() {
@@ -60,7 +60,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
         .setColor(guild.me.displayColor)
         .setTitle(mention.tag)
         .setImage(mention.avatarURL({"size" : parseInt(args[1].value), "dynamic" : true}));
-        callback(interaction, 4, JSON.stringify([embed]));
+        callback(interaction, 4, undefined, [embed]);
       });
     });
     break;
@@ -100,7 +100,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
         .addField("Managable by bot?", member.manageable, true)
         .addField("Permissions", member.permissions.toArray(), true)
         .addField("Boosting Since", member.premiumSince, true)
-        callback(interaction, 4, [embed]);
+        callback(interaction, 4, undefined, [embed]);
       })
     })
     break;
@@ -135,7 +135,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
         .addField("Vanity URL", guild.vanityURLCode, true)
         .addField("Verification Level", guild.verificationLevel, true)
         .addField("Verified", guild.verified, true)
-        callback(interaction, 4, [embed]);
+        callback(interaction, 4, undefined, [embed]);
       })
     });
     break;
@@ -159,7 +159,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
       .addField("Currently on Ventilator", covid.onVentilatorCurrently, true)
       .addField("Total Positive Cases", covid.positive, true)
       .addField("Positive Cases Since Yesterday", covid.positiveIncrease, true)
-      callback(interaction, 4, [embed])
+      callback(interaction, 4, undefined, [embed])
     });
     break;
   }
@@ -175,9 +175,9 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
         if (typeof evaled !== "string") {
           evaled = require("util").inspect(evaled);
         }
-        callback(interaction, 4, clean(evaled));
+        callback(interaction, 4, "\\>" + args[0].value + "\n" + clean(evaled));
       } catch (e) {
-        callback(interaction, 4, `\`ERROR\` \`\`\`xl\n${clean(e)}\n\`\`\``);
+        callback(interaction, 4, "\\>" + args[0].value + "\n" + `\`ERROR\` \`\`\`xl\n${clean(e)}\n\`\`\``);
       }
       break;
       case 'update':

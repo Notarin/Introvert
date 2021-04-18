@@ -60,7 +60,7 @@ client.ws.on('INTERACTION_CREATE', async interaction => {
         .setColor(guild.me.displayColor)
         .setTitle(mention.tag)
         .setImage(mention.avatarURL({"size" : parseInt(args[1].value), "dynamic" : true}));
-        callback(interaction, 4, [embed]);
+        callback(interaction, 4, JSON.stringify([embed]));
       });
     });
     break;

@@ -19,7 +19,7 @@
   "dependencies": {
     "axios": ">=0.21.1",
     "discord.js": "^12.5.1",
-    "simple-git": "^2.38.0",
+    "simple-git": "^3.3.0",
     "ytdl-core": "^2.1.2"
   }
 }
